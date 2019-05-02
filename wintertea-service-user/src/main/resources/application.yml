@@ -33,4 +33,5 @@ pagehelper:
 
 logging:
   level:
-    com.huawei.apimarket.services.dao : debug
+    com.wintertea.service.user.services.dao : debug
+  config: classpath:logback-spring.xml
