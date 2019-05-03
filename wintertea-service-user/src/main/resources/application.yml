@@ -21,8 +21,10 @@ mybatis:
 
 
 mapper:
+  not-empty: false
   identity: MYSQL
-  mappers: com.wintertea.commons.mapper.BaseMapper
+  mappers:
+    - com.wintertea.commons.mapper.BaseMapper
 
 pagehelper:
   helperDialect: mysql
