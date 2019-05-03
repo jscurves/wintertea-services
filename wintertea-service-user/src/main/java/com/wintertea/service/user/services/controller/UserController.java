@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author woody
  */
 @RestController
-@Api("用户接口模块")
+@Api(value = "用户接口模块", tags = "用户管理")
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);

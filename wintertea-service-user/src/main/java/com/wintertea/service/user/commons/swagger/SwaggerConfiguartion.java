@@ -25,10 +25,10 @@ public class SwaggerConfiguartion {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("swagger-bootstrap-ui RESTful APIs")
-                .description("swagger-bootstrap-ui")
-                .termsOfServiceUrl("http://localhost:8999/")
-                .contact("developer@mail.com")
+                .title("wintertea-service-user RESTful APIs")
+                .description("wintertea-service-user")
+                .termsOfServiceUrl("http://localhost:8080/")
+                .contact("APIs@wintertea.com")
                 .version("1.0")
                 .build();
     }
