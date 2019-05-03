@@ -1,6 +1,8 @@
 package com.wintertea.service.user.commons.handler;
 
 import com.wintertea.service.user.commons.result.ResultEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,6 +22,8 @@ import java.util.List;
 @RestControllerAdvice
 public class RestControllerResponseAdvice implements ResponseBodyAdvice<Object> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestControllerResponseAdvice.class);
+
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         return true;
@@ -27,13 +31,13 @@ public class RestControllerResponseAdvice implements ResponseBodyAdvice<Object> 
 
     /**
      * 排除swagger配置项信息
-     * @param body
-     * @return
+     * @param body 拦截到的数据
+     * @return Object 放行的数据
      */
     private Object excludeSwagger(Object body) {
         if (body instanceof List) {
-            Object object = ((List) body).get(0);
-            if (object instanceof SwaggerResource) {
+            List<Object> objects = (List) body;
+            if (objects.size() > 0 && objects.get(0) instanceof SwaggerResource) {
                 return body;
             }
         }
@@ -49,7 +53,9 @@ public class RestControllerResponseAdvice implements ResponseBodyAdvice<Object> 
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                                   ServerHttpResponse response) {
-        System.out.println(body);
+        LOGGER.info("拦截的信息为：{}", body);
+
+        // 排除Swagger默认信息的拦截
         Object object = this.excludeSwagger(body);
         if (object != null) {
             return object;
